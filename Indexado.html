@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Lizeth 💗</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ffb199);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.card {
+    width: 92%;
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 15px 50px rgba(0,0,0,.25);
+}
+
+.corazon {
+    font-size: 65px;
+    animation: latir 1s infinite;
+}
+
+h1 {
+    color: #e8436b;
+}
+
+p {
+    color: #444;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.boton {
+    border: none;
+    padding: 14px 22px;
+    margin: 8px;
+    border-radius: 30px;
+    background: #ff5c8a;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.boton:hover {
+    transform: scale(1.08);
+}
+
+#juego {
+    margin-top: 25px;
+}
+
+.contador {
+    color: #e8436b;
+    font-weight: bold;
+}
+
+.final {
+    display: none;
+    margin-top: 30px;
+}
+
+.perdonar {
+    background: #42c77a;
+}
+
+.no {
+    background: #555;
+}
+
+#respuesta {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.flotante {
+    position: fixed;
+    bottom: -40px;
+    font-size: 25px;
+    pointer-events: none;
+    animation: subir 4s linear forwards;
+}
+
+@keyframes latir {
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes subir {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="corazon">💗</div>
+
+<h1>Lizeth 😭💗</h1>
+
+<p>
+Sé que lo que leíste de Agus se pudo ver súper mal
+y entiendo perfectamente por qué te enojaste.
+</p>
+
+<p>
+Si yo hubiera leído algo así, probablemente también
+me habría sacado de onda.
+</p>
+
+<p>
+Pero quiero aclararte algo:
+<b>Agus es solamente mi amigo.</b>
+</p>
+
+<p>
+No tengo nada con él ni estoy escondiendo un novio
+ni nada parecido.
+</p>
+
+<p>
+Lo de “rico, alto, blanquito, chino y ojos verdes”
+fue un comentario que hice con mi amiga y admito
+que estuvo bien pendejo decirlo así 😭.
+</p>
+
+<p>
+Solo quiero que sepas la verdad. ❤️
+</p>
+
+<div id="juego">
+
+<p class="contador" id="contador">
+Razón 1 de 47 😭
+</p>
+
+<button class="boton" onclick="siguiente()">
+Perdóname 🥺
+</button>
+
+</div>
+
+<div class="final" id="final">
+
+<h2>Y después de 47 botones… 😭💀</h2>
+
+<p>
+La decisión es tuya. Solo quería que supieras
+que de verdad lo siento. ❤️
+</p>
+
+<form id="respuestaForm"
+action="https://formspree.io/f/meaoywyq"
+method="POST">
+
+<input type="hidden" name="respuesta" id="respuestaInput">
+
+<button type="button"
+class="boton perdonar"
+onclick="enviarRespuesta('TE PERDONO 💗')">
+💗 TE PERDONO
+</button>
+
+<button type="button"
+class="boton no"
+onclick="enviarRespuesta('NO TE PERDONO 💔')">
+💔 NO TE PERDONO
+</button>
+
+</form>
+
+<div id="respuesta"></div>
+
+</div>
+
+</div>
+
+<script>
+
+const frases = [
+"Perdóname 🥺",
+"Ahora sí perdóname 😭",
+"Porfa 💗",
+"No seas mala JAJAJA",
+"Metí la pata 😭",
+"Fue bien pendejo de mi parte",
+"Lo siento 💔",
+"Perdón por hacerte sentir así",
+"Agus es mi amigo 😭",
+"No tengo novio 💀",
+"Te estoy diciendo la verdad",
+"No quería lastimarte",
+"Entiendo tu enojo",
+"Entiendo si te dolió",
+"Perdón, neta 😭",
+"Estoy arrepentida",
+"No quiero perderte",
+"Me importas mucho",
+"Por favor 🥺",
+"Una oportunidad",
+"Solo quiero explicarte",
+"No fue lo que parecía",
+"Prometo hablar claro",
+"Perdón por mi comentario",
+"Fue una tontería 😭",
+"Ya entendí",
+"No quería causar esto",
+"Me pasé JAJAJA",
+"Perdón 💗",
+"Te lo juro",
+"Escúchame tantito",
+"No estoy escondiendo nada",
+"Solo fue un comentario",
+"No pasó nada con Agus",
+"Agus = amigo 💀",
+"Lizeth 😭",
+"Porfa porfa porfa",
+"Ya me dio pena JAJAJA",
+"Perdón otra vez",
+"Estoy intentando arreglarlo",
+"No quiero pelear",
+"Quiero estar bien contigo",
+"Te extraño",
+"Me importas ❤️",
+"Perdón por hacerte dudar",
+"Último botón 😭",
+"AHORA SÍ",
+"PERDÓNAME 💗"
+];
+
+let numero = 0;
+
+function siguiente() {
+
+    crearCorazones(4);
+
+    numero++;
+
+    if (numero >= frases.length) {
+
+        document.getElementById("juego").style.display = "none";
+        document.getElementById("final").style.display = "block";
+
+        return;
+    }
+
+    document.getElementById("contador").innerText =
+        "Razón " + (numero + 1) + " de 47 😭";
+
+    document.querySelector("#juego .boton").innerText =
+        frases[numero];
+}
+
+function enviarRespuesta(respuesta) {
+
+    document.getElementById("respuestaInput").value = respuesta;
+
+    document.getElementById("respuesta").innerText =
+        "Enviando... 💌";
+
+    document.getElementById("respuestaForm").submit();
+}
+
+function crearCorazones(cantidad) {
+
+    for (let i = 0; i < cantidad; i++) {
+
+        const c = document.createElement("div");
+
+        c.className = "flotante";
+
+        c.innerText =
+            ["💗","❤️","💕","💖","🥺","✨"]
+            [Math.floor(Math.random() * 6)];
+
+        c.style.left =
+            Math.random() * 100 + "vw";
+
+        document.body.appendChild(c);
+
+        setTimeout(() => c.remove(), 4000);
+    }
+}
+
+</script>
+
+</body>
+</html>
